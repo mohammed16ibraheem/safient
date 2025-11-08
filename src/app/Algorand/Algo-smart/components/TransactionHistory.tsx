@@ -124,17 +124,16 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
     };
 
     transactions.forEach(tx => {
-      const safientTx = tx as Transaction;
       if (
-        safientTx.safientProtected &&
-        safientTx.status === 'escrowed' &&
-        safientTx.transfer_id &&
-        safientTx.escrow_data?.expires_at &&
-        new Date() >= new Date(safientTx.escrow_data.expires_at) &&
-        !autoReleaseTriggered.current.has(safientTx.transfer_id)
+        tx.type === 'safient_ai_transfer' &&
+        tx.status === 'escrowed' &&
+        tx.transfer_id &&
+        tx.escrow_data?.expires_at &&
+        new Date() >= new Date(tx.escrow_data.expires_at) &&
+        !autoReleaseTriggered.current.has(tx.transfer_id)
       ) {
-        autoReleaseTriggered.current.add(safientTx.transfer_id);
-        triggerAutoRelease(safientTx.transfer_id);
+        autoReleaseTriggered.current.add(tx.transfer_id);
+        triggerAutoRelease(tx.transfer_id);
       }
     });
   }, [transactions]);
@@ -248,19 +247,19 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
             switch (transaction.status) {
               case 'reclaimed':
                 titleText = `Returned to ${senderDisplay}`;
-                badgeText = 'Safient Return';
+                badgeText = 'reclaimed';
                 break;
               case 'completed':
                 titleText = `Released to ${recipientDisplay}`;
-                badgeText = 'Safient Released';
+                badgeText = 'completed';
                 break;
               case 'escrowed':
                 titleText = `Safient protection for ${recipientDisplay}`;
-                badgeText = 'Safient Protected';
+                badgeText = 'escrowed';
                 break;
               default:
                 titleText = `Safient transfer for ${recipientDisplay}`;
-                badgeText = 'Safient Event';
+                badgeText = transaction.status;
             }
           } else {
             const isOutgoing = transaction.amount <= 0;

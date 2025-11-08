@@ -15,23 +15,13 @@ const SendToken: React.FC<SendTokenProps> = ({ userAddress, balance = 8.898000 }
     recipient: '573NTREKJYGQE6RN34VBV2YIV3PAJGTHNWG6W6MR4LR2JI5LXJUCFTMOXQ',
     amount: '1'
   });
-  const [useSafientAI, setUseSafientAI] = useState(false);
 
   const handleSafientAIClick = () => {
-    setUseSafientAI(true);
     setStep('verification');
   };
 
-  const handleVerificationComplete = (result: 'safe' | 'risky') => {
-    // After verification, proceed with Safient AI protected transaction
-    console.log('Verification result:', result);
-    // Here you would create the escrow transaction
+  const handleVerificationComplete = (_result: 'safe' | 'risky') => {
     setStep('history');
-  };
-
-  const handleEscrowAction = (transferId: string, action: 'reclaim' | 'release') => {
-    console.log(`Escrow action: ${action} for transfer ${transferId}`);
-    // Implement escrow action logic here
   };
 
   if (step === 'verification') {
@@ -48,7 +38,7 @@ const SendToken: React.FC<SendTokenProps> = ({ userAddress, balance = 8.898000 }
   if (step === 'history') {
     return (
       <TransactionHistory
-        onEscrowAction={handleEscrowAction}
+        userAddress={userAddress}
       />
     );
   }

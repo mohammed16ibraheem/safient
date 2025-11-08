@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
 import * as algosdk from 'algosdk';
+import { saveWalletData } from '../../utils/storage';
 
 interface WalletData {
   walletAddress: string;
@@ -26,15 +25,14 @@ export async function POST(request: NextRequest) {
     // Re-validate mnemonic and address match
     try {
       const account = algosdk.mnemonicToSecretKey(mnemonic.trim().toLowerCase());
-      
-      // Convert address to string for proper comparison
+
       if (account.addr.toString() !== address) {
         return NextResponse.json(
           { success: false, error: 'Mnemonic does not match the provided address' },
           { status: 400 }
         );
       }
-    } catch (error) {
+    } catch (_error) {
       return NextResponse.json(
         { success: false, error: 'Invalid mnemonic phrase' },
         { status: 400 }
@@ -42,78 +40,44 @@ export async function POST(request: NextRequest) {
     }
 
     // Connect to Algorand testnet to verify account exists
-    let accountInfo = null;
     let balance = 0;
-    
     try {
-      // Algorand testnet configuration
-      const algodToken = '';
-      const algodServer = 'https://testnet-api.algonode.cloud';
-      const algodPort = 443;
-      
-      const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-      
-      // Try to get account information from testnet
-      try {
-        accountInfo = await algodClient.accountInformation(address).do();
-        balance = Number(accountInfo.amount || 0); // Convert bigint to number
-        
-        console.log(`Account found on testnet with balance: ${balance} microAlgos`);
-      } catch (accountError: any) {
-        // Account might not exist on testnet (never funded)
-        if (accountError.status === 404) {
-          console.log('Account not found on testnet - this is normal for new/unfunded accounts');
-          // This is actually fine - account can exist without being funded
-        } else {
-          console.warn('Error checking account on testnet:', accountError.message);
-        }
+      const algodClient = new algosdk.Algodv2('', 'https://testnet-api.algonode.cloud', 443);
+      const accountInfo = await algodClient.accountInformation(address).do();
+      balance = Number(accountInfo.amount || 0);
+    } catch (accountError: any) {
+      if (accountError?.status !== 404) {
+        // Non-404 errors are logged but do not block the import
+        console.warn('Error checking account on testnet:', accountError?.message || accountError);
       }
-    } catch (networkError) {
-      console.warn('Network error connecting to testnet:', networkError);
-      // Continue with import even if network check fails
     }
 
-    // Create userdata directory if it doesn't exist
-    const userdataDir = join(process.cwd(), 'src', 'app', 'Algorand', 'userdata');
-    await mkdir(userdataDir, { recursive: true });
-
-    // Prepare wallet data
     const walletData: WalletData = {
       walletAddress: address,
       mnemonicPhrase: mnemonic.trim().toLowerCase(),
-      createdAt: new Date().toISOString(), // When wallet was originally created
-      importedAt: new Date().toISOString(), // When wallet was imported
+      createdAt: new Date().toISOString(),
+      importedAt: new Date().toISOString(),
       network: 'testnet',
-      balance: balance
+      balance
     };
 
-    // Create JSON file with wallet address as filename
-    const fileName = `${address}.json`;
-    const filePath = join(userdataDir, fileName);
-    
-    // Write wallet data to file
-    await writeFile(filePath, JSON.stringify(walletData, null, 2), 'utf8');
+    await saveWalletData(address, walletData);
 
-    // Also save to localStorage format for compatibility
-    const responseData = {
+    return NextResponse.json({
       success: true,
       message: 'Wallet imported successfully',
       walletData: {
-        address: address,
-        balance: balance,
-        network: 'testnet',
-        fileName: fileName
+        address,
+        balance,
+        network: 'testnet'
       }
-    };
-
-    return NextResponse.json(responseData);
-
+    });
   } catch (error) {
     console.error('Wallet import error:', error);
     return NextResponse.json(
-      { 
-        success: false, 
-        error: 'Failed to import wallet. Please try again.' 
+      {
+        success: false,
+        error: 'Failed to import wallet. Please try again.'
       },
       { status: 500 }
     );
