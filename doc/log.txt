@@ -1,0 +1,363 @@
+
+C:\Users\OK\Desktop\ok\Safient-main>
+C:\Users\OK\Desktop\ok\Safient-main>
+C:\Users\OK\Desktop\ok\Safient-main>
+C:\Users\OK\Desktop\ok\Safient-main>
+C:\Users\OK\Desktop\ok\Safient-main>npm run dev
+
+> safient@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.30
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 67.6s
+ ○ Compiling /Import ...
+request to https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbV2o-flEEny0FZhsfKu5WU4xD0OwGtT0rU3BE.woff2 failed, reason: read ECONNRESET
+
+Retrying 1/3...
+request to https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbV2o-flEEny0FZhsfKu5WU4xD_OwGtT0rU3BE.woff2 failed, reason: read ECONNRESET
+
+Retrying 1/3...
+request to https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbV2o-flEEny0FZhsfKu5WU4xD7OwGtT0rU.woff2 failed, reason: read ECONNRESET
+
+Retrying 1/3...
+request to https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbV2o-flEEny0FZhsfKu5WU4xD1OwGtT0rU3BE.woff2 failed, reason: read ECONNRESET
+
+Retrying 1/3...
+request to https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbV2o-flEEny0FZhsfKu5WU4xD4OwGtT0rU3BE.woff2 failed, reason: read ECONNRESET
+
+Retrying 1/3...
+request to https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbV2o-flEEny0FZhsfKu5WU4xD2OwGtT0rU3BE.woff2 failed, reason: read ECONNRESET
+
+Retrying 1/3...
+The user aborted a request.
+
+Retrying 1/3...
+The user aborted a request.
+
+Retrying 1/3...
+The user aborted a request.
+
+Retrying 1/3...
+The user aborted a request.
+
+Retrying 1/3...
+The user aborted a request.
+
+Retrying 1/3...
+The user aborted a request.
+
+Retrying 1/3...
+The user aborted a request.
+
+Retrying 1/3...
+ ✓ Compiled /Import in 109.9s (585 modules)
+ ✓ Compiled in 4.8s (271 modules)
+ GET /Import 200 in 116972ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /Algorand/import-wallet in 46.1s (865 modules)
+ GET /favicon/favicon.ico 404 in 47264ms
+ GET /favicon/favicon-32x32.png 404 in 203ms
+ GET /favicon/favicon-16x16.png 404 in 114ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 1859ms (473 modules)
+ GET /favicon.ico 200 in 2414ms
+ GET /favicon.ico 200 in 50ms
+ ○ Compiling /Algorand/api/validate-mnemonic ...
+ ✓ Compiled /Algorand/api/validate-mnemonic in 30.6s (614 modules)
+ POST /Algorand/api/validate-mnemonic 200 in 36505ms
+ ○ Compiling /Algorand/api/import-wallet ...
+ ✓ Compiled /Algorand/api/import-wallet in 18.1s (617 modules)
+Account found on testnet with balance: 9599002 microAlgos
+ POST /Algorand/api/import-wallet 200 in 20838ms
+ ○ Compiling /Algorand/dashboard ...
+ ✓ Compiled /Algorand/dashboard in 17s (1134 modules)
+Account found on testnet with balance: 9599002 microAlgos
+ POST /Algorand/api/import-wallet 200 in 11169ms
+ ✓ Compiled in 3.4s (482 modules)
+ ○ Compiling /Algorand/Algo-smart/api/get-transactions ...
+ ✓ Compiled /Algorand/Algo-smart/api/get-transactions in 1149ms (695 modules)
+ ✓ Compiled (821 modules)
+🚀 [GET-TRANSACTIONS] API called
+📝 [GET-TRANSACTIONS] Request params: {
+  userAddress: 'EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ',
+  limit: 50
+}
+🔍 [GET-TRANSACTIONS] Loading transactions from: C:\Users\OK\Desktop\ok\Safient-main\src\app\Algorand\Transaction
+📁 [GET-TRANSACTIONS] Found transaction files: 0
+📊 [GET-TRANSACTIONS] Total processed transactions: 0
+🔍 [GET-TRANSACTIONS] Filtered for user: EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ Count: 0
+✅ [GET-TRANSACTIONS] Returning transactions: 0
+ GET /Algorand/Algo-smart/api/get-transactions?user=EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ 200 in 8424ms
+ GET /favicon.ico 200 in 8893ms
+🚀 [GET-TRANSACTIONS] API called
+📝 [GET-TRANSACTIONS] Request params: {
+  userAddress: 'EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ',
+  limit: 50
+}
+🔍 [GET-TRANSACTIONS] Loading transactions from: C:\Users\OK\Desktop\ok\Safient-main\src\app\Algorand\Transaction
+📁 [GET-TRANSACTIONS] Found transaction files: 0
+📊 [GET-TRANSACTIONS] Total processed transactions: 0
+🔍 [GET-TRANSACTIONS] Filtered for user: EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ Count: 0
+✅ [GET-TRANSACTIONS] Returning transactions: 0
+ GET /Algorand/Algo-smart/api/get-transactions?user=EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ 200 in 127ms
+ ○ Compiling /Algorand/api/check-address ...
+ ✓ Compiled /Algorand/api/check-address in 2.5s (821 modules)
+ POST /Algorand/api/check-address 200 in 3151ms
+ POST /Algorand/api/check-address 200 in 3198ms
+ ○ Compiling /Algorand/Algo-smart/api/create-dynamic-transfer ...
+ ✓ Compiled /Algorand/Algo-smart/api/create-dynamic-transfer in 7.4s (685 modules)
+🚀 [CREATE-DYNAMIC-TRANSFER] Starting new transfer request undefined
+📝 [CREATE-DYNAMIC-TRANSFER] Request received {
+  transactionUUID: '1fbb0f47-5985-4cd3-af94-c3f6e391e578',
+  recipientAddress: 'DRJNPMAKIBP7QHVX6KWWSXW6ZMVEJCH4WENTFNNESYILNVCFBC4XUS4XYQ',
+  amount: 499999,
+  transferType: 'escrow',
+  escrowDuration: 0.5,
+  purpose: 'escrow_transfer'
+}
+🔐 [CREATE-DYNAMIC-TRANSFER] Validating sender credentials... undefined
+⏰ [CREATE-TRANSFER] Timer set for: {
+  durationHours: 0.5,
+  durationMinutes: 30,
+  expiresAt: '2025-10-09T05:16:58.394Z',
+  createdAt: '2025-10-09T04:46:58.395Z'
+}
+
+🛡️ === SAFIENT AI ESCROW CREATED ===
+📧 Original Recipient: DRJNPMAKIBP7QHVX6KWWSXW6ZMVEJCH4WENTFNNESYILNVCFBC4XUS4XYQ
+🏦 Escrow Address: YECDWSRSEES2Z2CKK3MK3YKRQR7GTZ2RUUPLAIMFW32OHDOINBE4L4I43Y
+💰 Amount: 499999 microAlgos
+⏰ Expires: Thu Oct 09 2025 10:46:58 GMT+0530 (India Standard Time)
+🔒 Transfer ID: a2cb5b4c-10cd-4aae-8a8e-2c48d89af4f9
+=====================================
+
+⏳ [CREATE-DYNAMIC-TRANSFER] Waiting for transaction confirmation... undefined
+✅ [CREATE-DYNAMIC-TRANSFER] Transaction completed successfully {
+  transactionUUID: '1fbb0f47-5985-4cd3-af94-c3f6e391e578',
+  transferId: 'a2cb5b4c-10cd-4aae-8a8e-2c48d89af4f9',
+  txnHash: '6JF3WNUVEAWFSDBRQI3ADJAKQ4457YZVXJLZ426VYEFJP6GPQGBQ',
+  blockRound: 56338989n,
+  savedPath: 'C:\\Users\\OK\\Desktop\\ok\\Safient-main\\src\\app\\Algorand\\Transaction\\1fbb0f47-5985-4cd3-af94-c3f6e391e578.json'
+}
+ POST /Algorand/Algo-smart/api/create-dynamic-transfer 200 in 15822ms
+ ○ Compiling /Algorand/Algo-smart/api/get-transactions ...
+ ✓ Compiled /Algorand/Algo-smart/api/get-transactions in 14.2s (1292 modules)
+🚀 [GET-TRANSACTIONS] API called
+📝 [GET-TRANSACTIONS] Request params: {
+  userAddress: 'EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ',
+  limit: 50
+}
+🔍 [GET-TRANSACTIONS] Loading transactions from: C:\Users\OK\Desktop\ok\Safient-main\src\app\Algorand\Transaction
+📁 [GET-TRANSACTIONS] Found transaction files: 1
+📄 [GET-TRANSACTIONS] Processing file: 1fbb0f47-5985-4cd3-af94-c3f6e391e578.json {
+  transaction_uuid: '1fbb0f47-5985-4cd3-af94-c3f6e391e578',
+  transfer_id: 'a2cb5b4c-10cd-4aae-8a8e-2c48d89af4f9',
+  sender_address: {
+    publicKey: {
+      '0': 37,
+      '1': 80,
+      '2': 238,
+      '3': 157,
+      '4': 105,
+      '5': 192,
+      '6': 173,
+      '7': 21,
+      '8': 237,
+      '9': 121,
+      '10': 122,
+      '11': 214,
+      '12': 93,
+      '13': 170,
+      '14': 83,
+      '15': 34,
+      '16': 54,
+      '17': 98,
+      '18': 207,
+      '19': 150,
+      '20': 14,
+      '21': 64,
+      '22': 81,
+      '23': 165,
+      '24': 4,
+      '25': 39,
+      '26': 67,
+      '27': 229,
+      '28': 39,
+      '29': 199,
+      '30': 177,
+      '31': 90
+    }
+  },
+  recipient_address: 'DRJNPMAKIBP7QHVX6KWWSXW6ZMVEJCH4WENTFNNESYILNVCFBC4XUS4XYQ',
+  escrow_address: {
+    publicKey: {
+      '0': 193,
+      '1': 4,
+      '2': 59,
+      '3': 74,
+      '4': 50,
+      '5': 33,
+      '6': 37,
+      '7': 172,
+      '8': 232,
+      '9': 74,
+      '10': 86,
+      '11': 216,
+      '12': 173,
+      '13': 225,
+      '14': 81,
+      '15': 132,
+      '16': 126,
+      '17': 105,
+      '18': 231,
+      '19': 81,
+      '20': 165,
+      '21': 30,
+      '22': 176,
+      '23': 33,
+      '24': 133,
+      '25': 182,
+      '26': 244,
+      '27': 227,
+      '28': 141,
+      '29': 200,
+      '30': 104,
+      '31': 73
+    }
+  },
+  escrow_id: '3b31ae1d-fcd3-4664-9d13-17b186216709',
+  escrow_mnemonic: 'swap damage urge frame escape assume group bullet pink steel pig enjoy wonder myself hat rocket include mountain nice alert myself call soap absorb unfair',
+  status: 'escrowed',
+  timestamp: '2025-10-09T04:47:02.542Z',
+  block_round: '56338989',
+  transaction_hash: '6JF3WNUVEAWFSDBRQI3ADJAKQ4457YZVXJLZ426VYEFJP6GPQGBQ',
+  amount: 499999,
+  purpose: 'escrow_transfer',
+  timer: {
+    duration_hours: 0.5,
+    expires_at: '2025-10-09T05:16:58.394Z',
+    created_at: '2025-10-09T04:47:02.543Z'
+  }
+}
+✅ [GET-TRANSACTIONS] Processed transaction: {
+  id: '1fbb0f47-5985-4cd3-af94-c3f6e391e578',
+  type: 'safient_ai_transfer',
+  status: 'escrowed',
+  isSafientAI: true,
+  hasEscrowData: true
+}
+📊 [GET-TRANSACTIONS] Total processed transactions: 1
+🔍 [GET-TRANSACTIONS] Filtered for user: EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ Count: 1
+✅ [GET-TRANSACTIONS] Returning transactions: 1
+ GET /Algorand/Algo-smart/api/get-transactions?user=EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ 200 in 10184ms
+🚀 [GET-TRANSACTIONS] API called
+📝 [GET-TRANSACTIONS] Request params: {
+  userAddress: 'EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ',
+  limit: 50
+}
+🔍 [GET-TRANSACTIONS] Loading transactions from: C:\Users\OK\Desktop\ok\Safient-main\src\app\Algorand\Transaction
+📁 [GET-TRANSACTIONS] Found transaction files: 1
+📄 [GET-TRANSACTIONS] Processing file: 1fbb0f47-5985-4cd3-af94-c3f6e391e578.json {
+  transaction_uuid: '1fbb0f47-5985-4cd3-af94-c3f6e391e578',
+  transfer_id: 'a2cb5b4c-10cd-4aae-8a8e-2c48d89af4f9',
+  sender_address: {
+    publicKey: {
+      '0': 37,
+      '1': 80,
+      '2': 238,
+      '3': 157,
+      '4': 105,
+      '5': 192,
+      '6': 173,
+      '7': 21,
+      '8': 237,
+      '9': 121,
+      '10': 122,
+      '11': 214,
+      '12': 93,
+      '13': 170,
+      '14': 83,
+      '15': 34,
+      '16': 54,
+      '17': 98,
+      '18': 207,
+      '19': 150,
+      '20': 14,
+      '21': 64,
+      '22': 81,
+      '23': 165,
+      '24': 4,
+      '25': 39,
+      '26': 67,
+      '27': 229,
+      '28': 39,
+      '29': 199,
+      '30': 177,
+      '31': 90
+    }
+  },
+  recipient_address: 'DRJNPMAKIBP7QHVX6KWWSXW6ZMVEJCH4WENTFNNESYILNVCFBC4XUS4XYQ',
+  escrow_address: {
+    publicKey: {
+      '0': 193,
+      '1': 4,
+      '2': 59,
+      '3': 74,
+      '4': 50,
+      '5': 33,
+      '6': 37,
+      '7': 172,
+      '8': 232,
+      '9': 74,
+      '10': 86,
+      '11': 216,
+      '12': 173,
+      '13': 225,
+      '14': 81,
+      '15': 132,
+      '16': 126,
+      '17': 105,
+      '18': 231,
+      '19': 81,
+      '20': 165,
+      '21': 30,
+      '22': 176,
+      '23': 33,
+      '24': 133,
+      '25': 182,
+      '26': 244,
+      '27': 227,
+      '28': 141,
+      '29': 200,
+      '30': 104,
+      '31': 73
+    }
+  },
+  escrow_id: '3b31ae1d-fcd3-4664-9d13-17b186216709',
+  escrow_mnemonic: 'swap damage urge frame escape assume group bullet pink steel pig enjoy wonder myself hat rocket include mountain nice alert myself call soap absorb unfair',
+  status: 'escrowed',
+  timestamp: '2025-10-09T04:47:02.542Z',
+  block_round: '56338989',
+  transaction_hash: '6JF3WNUVEAWFSDBRQI3ADJAKQ4457YZVXJLZ426VYEFJP6GPQGBQ',
+  amount: 499999,
+  purpose: 'escrow_transfer',
+  timer: {
+    duration_hours: 0.5,
+    expires_at: '2025-10-09T05:16:58.394Z',
+    created_at: '2025-10-09T04:47:02.543Z'
+  }
+}
+✅ [GET-TRANSACTIONS] Processed transaction: {
+  id: '1fbb0f47-5985-4cd3-af94-c3f6e391e578',
+  type: 'safient_ai_transfer',
+  status: 'escrowed',
+  isSafientAI: true,
+  hasEscrowData: true
+}
+📊 [GET-TRANSACTIONS] Total processed transactions: 1
+🔍 [GET-TRANSACTIONS] Filtered for user: EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ Count: 1
+✅ [GET-TRANSACTIONS] Returning transactions: 1
+ GET /Algorand/Algo-smart/api/get-transactions?user=EVIO5HLJYCWRL3LZPLLF3KSTEI3GFT4WBZAFDJIEE5B6KJ6HWFNMLDNWZQ 200 in 828ms

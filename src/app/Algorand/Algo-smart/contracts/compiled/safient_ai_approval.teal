@@ -1,0 +1,112 @@
+#pragma version 6
+txn ApplicationID
+int 0
+==
+bnz main_l10
+txna ApplicationArgs 0
+byte "safient_lock"
+==
+bnz main_l9
+txna ApplicationArgs 0
+byte "safient_return"
+==
+bnz main_l8
+txna ApplicationArgs 0
+byte "safient_release"
+==
+bnz main_l7
+txna ApplicationArgs 0
+byte "safient_status"
+==
+bnz main_l6
+err
+main_l6:
+int 1
+return
+main_l7:
+global LatestTimestamp
+byte "safient_unlocks"
+app_global_get
+>=
+assert
+byte "safient_state"
+app_global_get
+int 1
+==
+assert
+byte "safient_state"
+int 2
+app_global_put
+int 1
+return
+main_l8:
+txn Sender
+byte "safient_sender"
+app_global_get
+==
+assert
+global LatestTimestamp
+byte "safient_unlocks"
+app_global_get
+<
+assert
+byte "safient_state"
+app_global_get
+int 1
+==
+assert
+byte "safient_state"
+int 3
+app_global_put
+int 1
+return
+main_l9:
+txn NumAppArgs
+int 3
+==
+assert
+txn NumAccounts
+int 2
+==
+assert
+global LatestTimestamp
+int 0
+>
+assert
+byte "safient_sender"
+txn Sender
+app_global_put
+byte "safient_receiver"
+txna Accounts 1
+app_global_put
+byte "safient_amount"
+txna ApplicationArgs 1
+btoi
+app_global_put
+byte "safient_window"
+txna ApplicationArgs 2
+btoi
+app_global_put
+byte "safient_initiated"
+global LatestTimestamp
+app_global_put
+byte "safient_unlocks"
+global LatestTimestamp
+txna ApplicationArgs 2
+btoi
++
+app_global_put
+byte "safient_state"
+int 1
+app_global_put
+int 1
+return
+main_l10:
+byte "safient_version"
+byte "1.0.0"
+app_global_put
+byte "safient_state"
+int 0
+app_global_put
+int 1
+return

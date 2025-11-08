@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font-inter: var(--font-inter);
+  --font-poppins: var(--font-poppins);
+  --font-mono: var(--font-mono);
+  --font-playfair: var(--font-playfair);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-variant-numeric: oldstyle-nums;
+}
+
+/* Typography Classes */
+.font-heading {
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.font-display {
+  font-family: var(--font-playfair);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.font-body {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "liga" 0;
+}
+
+/* Enhanced Text Styles */
+.text-gradient {
+  @apply bg-gradient-to-r from-blue-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent;
+}
+
+.text-crypto-gradient {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heading-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Improved Readability */
+.prose {
+  font-family: var(--font-inter);
+  line-height: 1.7;
+  color: var(--foreground);
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  font-family: var(--font-poppins);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Add your custom animations here */
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% { top: 0; }
+  50% { top: 100%; }
+  100% { top: 0; }
+}
+
+.fingerprint-scan::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+  animation: scan 2s linear infinite;
+}
+
+.fingerprint-scan {
+  position: relative;
+}
+
+@keyframes scanning {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.scanning-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanning-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+  z-index: 1;
+  animation: scanning 1.5s ease-in-out infinite;
+}

@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "approval_teal": "#pragma version 6\ntxn ApplicationID\nint 0\n==\nbnz main_l10\ntxna ApplicationArgs 0\nbyte \"safient_lock\"\n==\nbnz main_l9\ntxna ApplicationArgs 0\nbyte \"safient_return\"\n==\nbnz main_l8\ntxna ApplicationArgs 0\nbyte \"safient_release\"\n==\nbnz main_l7\ntxna ApplicationArgs 0\nbyte \"safient_status\"\n==\nbnz main_l6\nerr\nmain_l6:\nint 1\nreturn\nmain_l7:\nglobal LatestTimestamp\nbyte \"safient_unlocks\"\napp_global_get\n>=\nassert\nbyte \"safient_state\"\napp_global_get\nint 1\n==\nassert\nbyte \"safient_state\"\nint 2\napp_global_put\nint 1\nreturn\nmain_l8:\ntxn Sender\nbyte \"safient_sender\"\napp_global_get\n==\nassert\nglobal LatestTimestamp\nbyte \"safient_unlocks\"\napp_global_get\n<\nassert\nbyte \"safient_state\"\napp_global_get\nint 1\n==\nassert\nbyte \"safient_state\"\nint 3\napp_global_put\nint 1\nreturn\nmain_l9:\ntxn NumAppArgs\nint 3\n==\nassert\ntxn NumAccounts\nint 2\n==\nassert\nglobal LatestTimestamp\nint 0\n>\nassert\nbyte \"safient_sender\"\ntxn Sender\napp_global_put\nbyte \"safient_receiver\"\ntxna Accounts 1\napp_global_put\nbyte \"safient_amount\"\ntxna ApplicationArgs 1\nbtoi\napp_global_put\nbyte \"safient_window\"\ntxna ApplicationArgs 2\nbtoi\napp_global_put\nbyte \"safient_initiated\"\nglobal LatestTimestamp\napp_global_put\nbyte \"safient_unlocks\"\nglobal LatestTimestamp\ntxna ApplicationArgs 2\nbtoi\n+\napp_global_put\nbyte \"safient_state\"\nint 1\napp_global_put\nint 1\nreturn\nmain_l10:\nbyte \"safient_version\"\nbyte \"1.0.0\"\napp_global_put\nbyte \"safient_state\"\nint 0\napp_global_put\nint 1\nreturn",
+  "clear_state_teal": "#pragma version 6\nint 1\nreturn",
+  "approval_file": "compiled\\safient_ai_approval.teal",
+  "clear_state_file": "compiled\\safient_ai_clear_state.teal",
+  "global_schema": {
+    "num_uints": 6,
+    "num_byte_slices": 3
+  },
+  "local_schema": {
+    "num_uints": 0,
+    "num_byte_slices": 0
+  },
+  "contract_info": {
+    "name": "Safient Branded Transfer Contract",
+    "version": "1.0.0",
+    "description": "Safient controlled staging flow with return and release operations",
+    "methods": [
+      "safient_lock",
+      "safient_return",
+      "safient_release",
+      "safient_status"
+    ]
+  },
+  "approval_bytecode": "BiAEAQACAyYDDXNhZmllbnRfc3RhdGUPc2FmaWVudF91bmxvY2tzDnNhZmllbnRfc2VuZGVyMRgjEkAA+zYaAIAMc2FmaWVudF9sb2NrEkAAbzYaAIAOc2FmaWVudF9yZXR1cm4SQABCNhoAgA9zYWZpZW50X3JlbGVhc2USQAAaNhoAgA5zYWZpZW50X3N0YXR1cxJAAAEAIkMyBylkD0QoZCISRCgkZyJDMQAqZBJEMgcpZAxEKGQiEkQoJWciQzEbJRJEMR0kEkQyByMNRCoxAGeAEHNhZmllbnRfcmVjZWl2ZXI2HAFngA5zYWZpZW50X2Ftb3VudDYaARdngA5zYWZpZW50X3dpbmRvdzYaAhdngBFzYWZpZW50X2luaXRpYXRlZDIHZykyBzYaAhcIZygiZyJDgA9zYWZpZW50X3ZlcnNpb26ABTEuMC4wZygjZyJD",
+  "clear_state_bytecode": "BoEBQw==",
+  "approval_hash": "7RRR3AJCKC5WEQP5DNCMP4HRHW32OIRVN7BNUW2GHQ3MTFOWUBPBDLIXZY",
+  "clear_state_hash": "OO7F7V6NG6BISF336ST4UVBTVMYNSG2BOOA3XKF5OBFP6LPMIJHRYWZRO4",
+  "approval_bytecode_file": "compiled\\safient_ai_approval.bytecode",
+  "clear_state_bytecode_file": "compiled\\safient_ai_clear_state.bytecode"
+}
