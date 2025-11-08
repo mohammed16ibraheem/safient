@@ -76,7 +76,6 @@ export default function AlgorandDashboard() {
     loadWalletData();
     
     // Log mnemonic status for debugging
-    console.log('Mnemonic status on initial load:', mnemonic ? 'Available' : 'Not available');
   }, []);
   
   // Add effect to store mnemonic in localStorage when it changes
@@ -84,7 +83,6 @@ export default function AlgorandDashboard() {
     if (mnemonic && walletAddress) {
       localStorage.setItem('algorand_address', walletAddress);
       localStorage.setItem('algorand_mnemonic', mnemonic);
-      console.log('✅ Mnemonic and address saved to localStorage');
     }
   }, [mnemonic, walletAddress]);
   
@@ -93,10 +91,8 @@ export default function AlgorandDashboard() {
     if ((!mnemonic || mnemonic.length === 0) && isConnected) {
       const storedMnemonic = localStorage.getItem('algorand_mnemonic');
       if (storedMnemonic) {
-        console.log('🔄 Restoring mnemonic from localStorage');
         setMnemonic(storedMnemonic);
       } else {
-        console.warn('⚠️ No mnemonic found in localStorage but wallet is connected');
       }
     }
   }, [mnemonic, isConnected]);
@@ -127,19 +123,12 @@ export default function AlgorandDashboard() {
       const address = localStorage.getItem('algorand_address');
       const mnemonicPhrase = localStorage.getItem('algorand_mnemonic');
       
-      console.log('🔍 Checking localStorage for wallet data:', {
-        addressExists: !!address,
-        mnemonicExists: !!mnemonicPhrase,
-        mnemonicLength: mnemonicPhrase?.length || 0
-      });
       
       if (address && mnemonicPhrase && mnemonicPhrase.length > 0) {
         // Set state immediately to ensure mnemonic is available for API calls
         setWalletAddress(address);
         setMnemonic(mnemonicPhrase);
         setIsConnected(true);
-        console.log('✅ Wallet data loaded from localStorage:', address);
-        console.log('✅ Mnemonic loaded successfully, length:', mnemonicPhrase.length);
         
         // Then fetch data that requires API calls
         await fetchBalance(address);
@@ -158,30 +147,19 @@ export default function AlgorandDashboard() {
           await fetchBalance(result.walletData.address);
           await fetchTransactions(result.walletData.address);
           setIsConnected(true);
-          console.log('✅ Wallet data loaded from file:', result.walletData.address);
           return;
         }
       }
       
-      console.log('⚠️ No wallet data found in localStorage or files');
     } catch (error) {
-      console.error('Error loading wallet data:', error);
     } finally {
       setLoading(false);
     }
   };
 
   const saveWalletDataToFile = async (walletData: WalletData) => {
-    console.log('🚀 Starting wallet data save process...');
-    console.log('📊 Wallet data to save:', {
-      walletAddress: walletData.walletAddress,
-      network: walletData.network,
-      createdAt: walletData.createdAt,
-      mnemonicLength: walletData.mnemonicPhrase?.length || 0
-    });
     
     try {
-      console.log('📡 Sending POST request to /Algorand/api/save-wallet-data');
       
       const response = await fetch('/Algorand/api/save-wallet-data', {
         method: 'POST',
@@ -191,48 +169,30 @@ export default function AlgorandDashboard() {
         body: JSON.stringify(walletData),
       });
       
-      console.log('📨 Response status:', response.status);
-      console.log('📨 Response ok:', response.ok);
       
       const responseData = await response.json();
-      console.log('📨 Response data:', responseData);
       
       if (!response.ok) {
         throw new Error(`Failed to save wallet data: ${responseData.message || 'Unknown error'}`);
       }
       
-      console.log('✅ Wallet data saved successfully!');
-      console.log('📄 File created:', responseData.fileName);
-      console.log('📁 File path:', responseData.filePath);
       
     } catch (error) {
-      console.error('❌ Error saving wallet data:', error);
-      console.error('Error details:', {
-        message: error instanceof Error ? error.message : 'Unknown error',
-        stack: error instanceof Error ? error.stack : undefined
-      });
     }
   };
 
   const connectWallet = async () => {
-    console.log('🔗 Connect Wallet button clicked');
     setConnecting(true);
     
     try {
       const address = localStorage.getItem('algorand_address');
       const mnemonicPhrase = localStorage.getItem('algorand_mnemonic');
       
-      console.log('🔍 Retrieved from localStorage:', {
-        address: address ? `${address.substring(0, 10)}...` : 'null',
-        mnemonicExists: !!mnemonicPhrase,
-        mnemonicLength: mnemonicPhrase?.length || 0
-      });
       
       if (address && mnemonicPhrase && mnemonicPhrase.length > 0) {
         // Update state immediately to ensure mnemonic is available for API calls
         setWalletAddress(address);
         setMnemonic(mnemonicPhrase);
-        console.log('✅ Mnemonic set in state, length:', mnemonicPhrase.length);
         
         const walletData: WalletData = {
           walletAddress: address,
@@ -241,18 +201,11 @@ export default function AlgorandDashboard() {
           network: 'testnet'
         };
         
-        console.log('💾 Calling saveWalletDataToFile...');
         await saveWalletDataToFile(walletData);
         setIsConnected(true);
-        console.log('✅ Wallet connected successfully');
       } else {
-        console.warn('⚠️ Missing wallet data in localStorage');
-        console.log('Address exists:', !!address);
-        console.log('Mnemonic exists:', !!mnemonicPhrase);
-        console.log('Mnemonic length:', mnemonicPhrase?.length || 0);
       }
     } catch (error) {
-      console.error('❌ Error connecting wallet:', error);
     } finally {
       setConnecting(false);
     }
@@ -263,48 +216,32 @@ export default function AlgorandDashboard() {
       const accountInfo = await algodClient.accountInformation(address).do();
       setBalance(Number(accountInfo.amount) / 1000000); // Convert microAlgos to Algos
     } catch (error) {
-      console.error('Error fetching balance:', error);
       setBalance(0);
     }
   };
 
   const fetchTransactions = async (address: string) => {
     try {
-      console.log('🔍 [DASHBOARD] Fetching transactions for address:', address);
       
       // First, try to load SafientAI transactions from local files
       let safientTransactions: any[] = [];
       const safientOnChainHashes = new Set<string>();
       try {
-        console.log('📡 [DASHBOARD] Loading SafientAI transactions...');
         const safientResponse = await fetch('/Algorand/Algo-smart/api/get-transactions?user=' + address);
         const safientData = await safientResponse.json();
         
         if (safientData.success) {
           safientTransactions = safientData.transactions || [];
-          console.log('✅ [DASHBOARD] SafientAI transactions loaded:', safientTransactions.length);
           
           // Log each SafientAI transaction for debugging
           safientTransactions.forEach((tx, index) => {
-            console.log(`🛡️ [DASHBOARD] SafientAI Transaction ${index + 1}:`, {
-              id: tx.transaction_id,
-              type: tx.type,
-              status: tx.status,
-              amount: tx.amount,
-              recipient: tx.recipient,
-              originalRecipient: tx.original_recipient,
-              hasEscrowData: !!tx.escrow_data,
-              escrowData: tx.escrow_data
-            });
             if (tx.transaction_hash) safientOnChainHashes.add(tx.transaction_hash);
             if (tx.release_transaction_hash) safientOnChainHashes.add(tx.release_transaction_hash);
             if (tx.reclaim_transaction_hash) safientOnChainHashes.add(tx.reclaim_transaction_hash);
           });
         } else {
-          console.warn('⚠️ [DASHBOARD] Failed to load SafientAI transactions:', safientData.error);
         }
       } catch (safientError) {
-        console.error('❌ [DASHBOARD] Error loading SafientAI transactions:', safientError);
       }
       
       // Then fetch from Algorand indexer for regular transactions
@@ -316,14 +253,12 @@ export default function AlgorandDashboard() {
         .limit(50)
         .do();
       
-      console.log('📊 [DASHBOARD] Algorand indexer response:', response);
       
       let algorandTransactions: Transaction[] = [];
       
       if (response.transactions && response.transactions.length > 0) {
         algorandTransactions = response.transactions
           .filter((txn: any) => {
-            console.log('🔍 [DASHBOARD] Checking Algorand transaction:', txn.id, 'Type:', txn.txType);
             return txn.txType === 'pay' && txn.paymentTransaction;
           })
           .map((txn: any) => {
@@ -347,7 +282,6 @@ export default function AlgorandDashboard() {
           .filter((txn: Transaction) => txn.amount > 0);
       }
       
-      console.log('✅ [DASHBOARD] Algorand transactions processed:', algorandTransactions.length);
       
       // Convert SafientAI transactions to dashboard format
       const convertedSafientTransactions: Transaction[] = safientTransactions.map(tx => {
@@ -376,17 +310,6 @@ export default function AlgorandDashboard() {
           displayStatus = tx.escrow_data && tx.escrow_data.can_reclaim ? 'escrowed' : 'confirmed';
         }
         
-        console.log('🔄 [DASHBOARD] Converting SafientAI transaction:', {
-          id: tx.transaction_id,
-          originalStatus: tx.status,
-          displayStatus: displayStatus,
-          isUserSender,
-          displayAddress,
-          originalRecipient: tx.original_recipient,
-          escrowAddress: tx.escrow_data?.escrow_address,
-          canReclaim: tx.escrow_data?.can_reclaim,
-          transferId: tx.transfer_id
-        });
         
         return {
           id: tx.transaction_id,
@@ -411,25 +334,10 @@ export default function AlgorandDashboard() {
         .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
         .slice(0, 6);
       
-      console.log('📋 [DASHBOARD] Final transaction list (deduplicated):', {
-        total: allTransactions.length,
-        safientAI: convertedSafientTransactions.length,
-        algorand: deduplicatedAlgorandTxs.length,
-        duplicatesRemoved: algorandTransactions.length - deduplicatedAlgorandTxs.length,
-        transactions: allTransactions.map(tx => ({
-          id: tx.id,
-          type: tx.type,
-          amount: tx.amount,
-          address: tx.address,
-          safientProtected: (tx as any).safientProtected,
-          hasEscrowData: !!(tx as any).escrowData
-        }))
-      });
       
       setTransactions(allTransactions);
       
     } catch (error) {
-      console.error('❌ [DASHBOARD] Error fetching transactions:', error);
       
       // Fallback: try to show account balance as faucet transaction
       try {
@@ -446,7 +354,6 @@ export default function AlgorandDashboard() {
           setTransactions([faucetTxn]);
         }
       } catch (fallbackError) {
-        console.error('❌ [DASHBOARD] Fallback error:', fallbackError);
         setTransactions([]);
       }
     }
@@ -465,7 +372,6 @@ export default function AlgorandDashboard() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error('Failed to copy:', error);
     }
   };
 
@@ -502,58 +408,30 @@ export default function AlgorandDashboard() {
       if (storedMnemonic && storedMnemonic.length > 0) {
         mnemonicToUse = storedMnemonic;
         setMnemonic(storedMnemonic);
-        console.log('🔄 Recovered mnemonic from localStorage');
       }
     }
     
     // Third attempt: Force reload wallet data if still no mnemonic
     if (!mnemonicToUse || mnemonicToUse.length === 0) {
-      console.warn('⚠️ No mnemonic available, attempting to reload wallet data');
       try {
         await loadWalletData();
         mnemonicToUse = localStorage.getItem('algorand_mnemonic') || '';
       } catch (error) {
-        console.error('❌ Failed to reload wallet data:', error);
       }
     }
     
     // Final validation
     if (!mnemonicToUse || mnemonicToUse.length === 0) {
-      console.error('❌ Mnemonic is not available after all recovery attempts');
       setSendError('Wallet mnemonic not available. Please reconnect your wallet.');
       setSending(false);
       return;
     }
     
-    console.log('🔑 Mnemonic validated for API call:', {
-      exists: !!mnemonicToUse,
-      length: mnemonicToUse.length
-    });
     
-    console.log('🔑 Mnemonic validated for API call:', {
-      exists: !!mnemonicToUse,
-      length: mnemonicToUse.length
-    });
     
-    console.log('🔑 Mnemonic validated for API call:', {
-      exists: !!mnemonicToUse,
-      length: mnemonicToUse.length
-    });
     
-    console.log('🔑 Mnemonic validated for API call:', {
-      exists: !!mnemonicToUse,
-      length: mnemonicToUse.length
-    });
     
-    console.log('🔑 Mnemonic validated for API call:', {
-      exists: !!mnemonicToUse,
-      length: mnemonicToUse.length
-    });
     
-    console.log('🔑 Mnemonic validated for API call:', {
-      exists: !!mnemonicToUse,
-      length: mnemonicToUse.length
-    });
     
     try {
       // Add a unique identifier to prevent duplicate submissions
@@ -578,7 +456,6 @@ export default function AlgorandDashboard() {
       const result = await response.json();
       
       if (result.success) {
-        console.log('🛡️ SafientAI Transfer Created:', result.data);
         setSendSuccess(true);
         setSendAddress('');
         setSendAmount('');
@@ -593,7 +470,6 @@ export default function AlgorandDashboard() {
         throw new Error(result.error || 'SafientAI transfer failed');
       }
     } catch (error) {
-      console.error('❌ SafientAI Transfer failed:', error);
       setSendError(error instanceof Error ? error.message : 'SafientAI transfer failed');
     } finally {
       setSending(false);
@@ -618,27 +494,20 @@ export default function AlgorandDashboard() {
     
     // Validate mnemonic is available before proceeding
     if ((!storedMnemonic || storedMnemonic.length === 0) && (!mnemonic || mnemonic.length === 0)) {
-      console.error('❌ Mnemonic is not available for transaction');
       throw new Error('Wallet mnemonic not available. Please reconnect your wallet.');
     }
     
     // Update the mnemonic state with the latest value from localStorage
     if (storedMnemonic && storedMnemonic.length > 0 && (!mnemonic || storedMnemonic !== mnemonic)) {
       setMnemonic(storedMnemonic);
-      console.log('🔄 Updated mnemonic from localStorage for transaction');
     }
     
     // Ensure we have a valid mnemonic to use
     const mnemonicToUse = storedMnemonic || mnemonic;
     if (!mnemonicToUse || mnemonicToUse.length === 0) {
-      console.error('❌ No valid mnemonic available after attempted recovery');
       throw new Error('Unable to access wallet credentials. Please reconnect your wallet.');
     }
     
-    console.log('🔑 Mnemonic available for transaction:', {
-      exists: !!mnemonicToUse,
-      length: mnemonicToUse.length
-    });
 
     // Validate balance including fees
     if (feeData && (feeData.totalAmount ?? 0) > balance) {
@@ -672,11 +541,9 @@ export default function AlgorandDashboard() {
       // Wait for confirmation - Fix: Use 'txid' instead of 'txId'
       await algosdk.waitForConfirmation(algodClient, txResponse.txid, 4);
       
-      console.log('✅ Transaction successful:', txResponse.txid);
       return txResponse.txid;  // Fix: Use 'txid' instead of 'txId'
       
     } catch (error) {
-      console.error('❌ Transaction failed:', error);
       throw error;
     }
   };
@@ -696,7 +563,6 @@ const proceedWithTransaction = async () => {
     setVerificationResult(null);
     await fetchBalance(walletAddress);
   } catch (error) {
-    console.error('Transaction failed:', error);
     setSendError(error instanceof Error ? error.message : 'Transaction failed');
   } finally {
     setSending(false);
@@ -705,7 +571,6 @@ const proceedWithTransaction = async () => {
   
   const handleReclaimFunds = async (transferId: string) => {
     if (!transferId) {
-      console.error('❌ [RECLAIM] No transfer ID provided');
       setReclaimError('Transfer ID is required');
       return;
     }
@@ -715,18 +580,12 @@ const proceedWithTransaction = async () => {
     const mnemonicToUse = storedMnemonic || mnemonic;
     
     if (!mnemonicToUse || mnemonicToUse.length === 0) {
-      console.error('❌ [RECLAIM] No mnemonic available');
       setReclaimError('Wallet mnemonic not available. Please refresh and try again.');
       return;
     }
 
-    console.log('🔄 [RECLAIM] Starting reclaim process for transfer:', transferId);
-    console.log('🔄 [RECLAIM] Using wallet address:', walletAddress);
     
     // Enhanced logging for debugging
-    console.log('🔍 [RECLAIM-DEBUG] Current wallet balance:', balance);
-    console.log('🔍 [RECLAIM-DEBUG] Mnemonic length:', mnemonicToUse.length);
-    console.log('🔍 [RECLAIM-DEBUG] Transfer ID:', transferId);
     
     // Find transaction details for logging
     const transaction = transactions.find(tx => {
@@ -735,17 +594,7 @@ const proceedWithTransaction = async () => {
     }) as Transaction;
     
     if (transaction) {
-      console.log('📊 [RECLAIM-FUNDS] Transaction details:', {
-        amount: transaction.amount,
-        recipient: transaction.address,
-        status: transaction.status,
-        timestamp: transaction.timestamp,
-        escrowAddress: transaction.escrowData?.escrow_address || 'Unknown',
-        expiresAt: transaction.escrowData?.expires_at || 'Unknown',
-        canReclaim: transaction.escrowData?.can_reclaim
-      });
     } else {
-      console.warn('⚠️ [RECLAIM-FUNDS] Transaction details not found for ID:', transferId);
     }
     
     // Add transfer to reclaiming set
@@ -754,7 +603,6 @@ const proceedWithTransaction = async () => {
     setReclaimSuccess('');
 
     try {
-      console.log('📡 [RECLAIM] Sending reclaim request to API...');
       
       const response = await fetch('/Algorand/Algo-smart/api/reclaim-escrow', {
         method: 'POST',
@@ -769,36 +617,16 @@ const proceedWithTransaction = async () => {
 
       const result = await response.json();
       
-      console.log('📡 [RECLAIM] API response status:', response.status);
       
       // Log detailed transaction information
       if (result.data) {
-        console.log('💰 [RECLAIM-FUNDS] Escrow transaction details:', {
-          transactionHash: result.data.transactionHash || 'Not provided',
-          escrowAddress: result.data.escrowAddress || 'Not provided',
-          amountReclaimed: result.data.amount || 'Not provided',
-          fees: result.data.fees || 'Not provided',
-          netAmount: result.data.netAmount || 'Not provided',
-          timestamp: new Date().toISOString()
-        });
       }
       
       // Enhanced error logging
       if (!result.success) {
-        console.error('❌ [RECLAIM] Reclaim failed:', result.error);
-        console.error('🔍 [RECLAIM-DEBUG] Full error details:', {
-          transferId,
-          walletAddress,
-          errorMessage: result.error,
-          responseStatus: response.status,
-          errorCode: result.errorCode || 'None',
-          escrowBalance: result.escrowBalance || 'Unknown',
-          requiredAmount: result.requiredAmount || 'Unknown'
-        });
         
         // Special handling for overspend errors
         if (result.error && result.error.includes('overspend')) {
-          console.error('💸 [RECLAIM-FUNDS] Overspend error detected. SafientAI may have insufficient funds.');
           setReclaimError(`Reclaim failed: Insufficient funds in SafientAI protection. ${result.error || 'Unknown error'}`);
         } else {
           setReclaimError(`Reclaim failed: ${result.error || 'Unknown error'}`);
@@ -806,17 +634,10 @@ const proceedWithTransaction = async () => {
         return;
       }
       
-      console.log('✅ [RECLAIM] Funds reclaimed successfully:', result.data);
-      console.log('💰 [RECLAIM-FUNDS] Funds flow complete: Escrow → Sender wallet');
       
       // Log balance changes
       const oldBalance = balance;
       await fetchBalance(walletAddress);
-      console.log('💰 [RECLAIM-FUNDS] Wallet balance change:', {
-        before: oldBalance,
-        after: balance,
-        difference: balance - oldBalance
-      });
       
       setReclaimSuccess('Funds reclaimed successfully!');
       
@@ -842,14 +663,6 @@ const proceedWithTransaction = async () => {
       await fetchBalance(walletAddress);
       await fetchTransactions(walletAddress);
     } catch (error) {
-      console.error('❌ [RECLAIM] Network error:', error);
-      console.error('🔍 [RECLAIM-DEBUG] Network error details:', {
-        transferId,
-        walletAddress,
-        error: error instanceof Error ? error.message : 'Unknown error',
-        stack: error instanceof Error ? error.stack : undefined,
-        timestamp: new Date().toISOString()
-      });
       setReclaimError(`Network error: ${error instanceof Error ? error.message : 'Please check your connection and try again.'}`);
     } finally {
       // Remove transfer from reclaiming set
@@ -1173,7 +986,7 @@ const proceedWithTransaction = async () => {
                         }`}
                       >
                         <Shield className="h-5 w-5 mr-3 transition-transform group-hover:scale-110" />
-                        <span>{sending ? 'Processing...' : '🛡️ Send with SafientAI Protection'}</span>
+                        <span>{sending ? 'Processing...' : 'Send with SafientAI Protection'}</span>
                       </button>
                       {/* SafientAI Protection is the only option now */}
                     </div>
@@ -1274,13 +1087,6 @@ const proceedWithTransaction = async () => {
                       const safientTx = tx as Transaction;
                       const isReclaiming = reclaimingTransfers.has(safientTx.transferId || '');
                       
-                      console.log('🎨 [DASHBOARD] Rendering transaction:', {
-                        id: tx.id,
-                        type: tx.type,
-                        safientProtected: safientTx.safientProtected,
-                        hasEscrowData: !!safientTx.escrowData,
-                        escrowData: safientTx.escrowData
-                      });
                       
                       return (
                         <div key={tx.id} className="bg-gray-800/50 rounded-lg p-4">
@@ -1354,8 +1160,8 @@ const proceedWithTransaction = async () => {
                               </p>
                               <p className="text-xs sm:text-sm text-gray-400 capitalize">
                                 {tx.status === 'escrowed' ? 'SafientAI Protected' : 
-                                 tx.status === 'completed' ? (safientTx.autoReleased ? '✅ Auto-Released' : '✅ Completed') : 
-                                 tx.status === 'reclaimed' ? '🔄 Reclaimed' :
+                                 tx.status === 'completed' ? (safientTx.autoReleased ? 'Auto-Released' : 'Completed') : 
+                                 tx.status === 'reclaimed' ? 'Reclaimed' :
                                  tx.status}
                               </p>
                             </div>

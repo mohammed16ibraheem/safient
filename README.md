@@ -32,3 +32,28 @@ During the protection window we run the following staged checks (currently simul
 
 
 MIT © Safient Labs – safeguard mnemonics and keep crypto users whole.
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+reciver : FGNISGOLAKHLKOPSD6PXE65WNGJBOLQUI6HDRPHT65THAGM3AH74XCMQSU
+
+
+ wallet phareses :  emerge clock ancient pen involve acid demand source uphold silver awesome aim produce rude good creek token draw arrange warm gloom jacket child abandon beach
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+sender :  ZV7DKE6UH6RTHB3OKA5JS23IBBE7JOT3QWILX4W2GI6F6XYUFIVO3O4E3U
+
+
+wallet phareses : worry nominee spy lava member gym whale used palace genre diamond crowd online pave erupt smooth athlete decline foam sun script chaos usual ability track
+
+
+-----------------------------------------------------------------------------------------
+
+
+check the images in folder images 
