@@ -12,9 +12,19 @@ Safient wraps Algorand transfers in an AI-guarded protection window so hacked or
 I lost everything to a single phishing link. Watching a trusted wallet get emptied with zero recourse changed me — I refused to accept that as the final answer. Safient exists so others don’t have to face that helplessness. Whether funds are stolen by a scam, sent to the wrong address by accident, or taken through coercion, even a small chance to recover assets matters. Safient gives people that chance — a safety net, a second shot, and hope when it matters most.
 
 ## What Problem Do We Solve?
-Victims rarely recover funds once a blockchain transaction is confirmed. Safient introduces a brief, AI-supervised holding phase so suspicious activity can be reversed. No other consumer-facing protection on Algorand offers automatic recovery with live monitoring.
+Once a blockchain transaction is confirmed, the funds are usually gone forever. Scams, phishing links, wrong-address transfers, and forced transactions leave victims with no path to recovery. Most users only realize the mistake after it is too late.
+Safient changes that. We introduce a short AI-supervised protection window before the final settlement. During this window, the system analyzes the transaction behavior, checks for risk patterns, and allows recovery if suspicious activity is detected. This gives users a real chance to reverse harmful or accidental transfers.
+No other consumer-facing protection layer on Algorand offers live monitoring, reversible transfers, and automated fund recovery. Safient becomes the missing safety net in crypto.
 
-.
+
+For Exchanges, Wallets, and Platforms !
+
+We provide an easy API that can be integrated into any wallet, exchange, or transaction service. Platforms can offer their users fund protection without changing their core infrastructure.
+This also opens a clear revenue model:
+A micro-fee on each protected transaction
+Premium AI threat monitoring plans
+Enterprise-level recovery support for exchanges and DeFi apps
+Every transaction that passes through Safient becomes a revenue opportunity while improving user safety and trust.
 
 ## AI Security Scan Workflow
 During the protection window, Safient runs a staged AI-driven security scan. The system is already functional, but due to hosting limits on Vercel, the full deep analysis model is currently replaced with a partial simulation. The core algorithm is completed and operational. Once the VPS model nodes are funded and deployed, the full workflow will run live in real time.
