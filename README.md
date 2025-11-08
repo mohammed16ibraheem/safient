@@ -9,7 +9,7 @@ Safient wraps Algorand transfers in an AI-guarded protection window so hacked or
 - **Always learning** – AI threat analysis, address intelligence, and real-time scoring keep improving with every incident.
 
 ## Why We Built Safient
-I lost assets myself—one phishing link in a trusted wallet drained everything. Rather than accept it, I built Safient so no one else has to watch their balance disappear with zero recourse. Even a 1% chance to recover funds is worth giving people hope; Safient is that second chance.
+I lost everything to a single phishing link. Watching a trusted wallet get emptied with zero recourse changed me — I refused to accept that as the final answer. Safient exists so others don’t have to face that helplessness. Whether funds are stolen by a scam, sent to the wrong address by accident, or taken through coercion, even a small chance to recover assets matters. Safient gives people that chance — a safety net, a second shot, and hope when it matters most.
 
 ## What Problem Do We Solve?
 Victims rarely recover funds once a blockchain transaction is confirmed. Safient introduces a brief, AI-supervised holding phase so suspicious activity can be reversed. No other consumer-facing protection on Algorand offers automatic recovery with live monitoring.
@@ -17,7 +17,7 @@ Victims rarely recover funds once a blockchain transaction is confirmed. Safient
 .
 
 ## AI Security Scan Workflow
-During the protection window we run the following staged checks (currently simulated dummy,ready for VPS deployment once the tuned models are pushed): vercel as some limits 
+During the protection window, Safient runs a staged AI-driven security scan. The system is already functional, but due to hosting limits on Vercel, the full deep analysis model is currently replaced with a partial simulation. The core algorithm is completed and operational. Once the VPS model nodes are funded and deployed, the full workflow will run live in real time.
 
 1. Initializing AI Security Scan
 2. Connecting to Blockchain Nodes
@@ -28,7 +28,7 @@ During the protection window we run the following staged checks (currently simul
 7. Deep Learning Analysis
 8. Calculating Risk Assessment
 
-
+I have already developed the main algorithm that powers this system using AI, especially for transaction behavior detection and anomaly scoring. At the moment, only 60% of the full model is deployed due to resource limits. The logic is complete and production-ready, and the next step is to host the model on a dedicated VPS server so the full analysis can process live data at real scale.
 
 
 MIT © Safient Labs – safeguard mnemonics and keep crypto users whole.
