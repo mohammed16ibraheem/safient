@@ -2,6 +2,40 @@
 
 Safient wraps Algorand transfers in an AI-guarded protection window so hacked or phished funds snap back to the rightful owner. A flat **0.1 ALGO Safient fee** protects every transfer, and after the window ends the money reaches the intended recipient automatically.
 
+## Project Overview
+- **Goal:** give Algorand users a reversible, AI-protected transfer window so they can claw back funds if a transaction looks suspicious.
+- **What it does:** every outgoing payment is parked in a Safient escrow contract, scanned by our AI risk engine, and either reclaimed by the sender or auto-released to the recipient when the timer expires.
+
+## Setup & Installation Instructions
+1. **Clone & install**
+   ```bash
+   git clone https://github.com/<your-org>/safient.git
+   cd safient-main
+   npm install
+   ```
+   The hosted Vercel preview is rate-limited; for a full walkthrough run `npm run dev` locally. A short demo video is available under `Images/video sample.mp4`.
+2. **Configure environment**  
+   Create `.env.local` (copy `.env.example` if available) and add any Algorand API keys you need (`ALGOD_TOKEN`, `ALGOD_SERVER`, `ALGOD_PORT`). Defaults target Algonode TestNet, so you can leave them empty while testing.
+3. **Run locally**
+   ```bash
+   npm run dev
+   ```
+   Visit `http://localhost:3000` to explore the dashboard, create a wallet, and simulate protected transfers.
+4. **Optional** – set `VERCEL=1` and Vercel KV credentials if you plan to deploy the API on Vercel and keep transaction history persistent.
+
+## Links to Deployed Smart Contracts or Assets on the Testnet
+- **Safient AI Transfer Contract (Algorand TestNet App ID `749279083`)**  
+  https://testnet.algoexplorer.io/application/749279083  
+  - App address: `DEDG2KY4MPS2RRVAUYYJZOWCK6QMQJSYROOIJPNAMZJCOKFEWAGGAHC33U`  
+  - Deployment tx: `SXAWS6YDUVBGMKJBDPQYD7K4Y5PZQY4U3R2MVXGUHHSAPREOLNQA`
+
+## Architecture & Components
+- **Next.js 14 frontend** – marketing site, wallet onboarding, and the Algorand dashboard (`src/app/`).
+- **Safient AI components** – reusable UI + logic for escrow creation, verification, and timers under `src/app/Algorand/Algo-smart/`.
+- **API routes** – server actions that call Algorand SDK, manage escrow, persist testnet data, and interact with storage (`src/app/Algorand/api/` and `Algo-smart/api/`).
+- **Storage layer** – wraps local filesystem, Vercel KV, or in-memory fallback to record transactions and wallet snapshots (`src/app/Algorand/utils/storage.ts`).
+- **Smart contracts** – TEAL source, compiled bytecode, and deployment metadata in `src/app/Algorand/Algo-smart/contracts/`.
+
 ## Why Safient
 - **Undo a breach** – If a wallet is compromised, the sender reclaims the transfer instantly.
 - **Zero babysitting** – When the protection window closes, Safient releases the funds to the recipient without human intervention.
@@ -66,4 +100,4 @@ wallet phareses : worry nominee spy lava member gym whale used palace genre diam
 -----------------------------------------------------------------------------------------
 
 
-check the images in folder images 
+Check the screenshots and demo video in the `Images/` folder.
