@@ -25,7 +25,7 @@ Safient wraps Algorand transfers in an AI-guarded protection window so hacked or
 
 ## Links to Deployed Smart Contracts or Assets on the Testnet
 - **Safient AI Transfer Contract (Algorand TestNet App ID `749279083`)**  
-  https://testnet.algoexplorer.io/application/749279083  
+    (https://testnet.algo.surf/application/749279083/transactions)
   - App address: `DEDG2KY4MPS2RRVAUYYJZOWCK6QMQJSYROOIJPNAMZJCOKFEWAGGAHC33U`  
   - Deployment tx: `SXAWS6YDUVBGMKJBDPQYD7K4Y5PZQY4U3R2MVXGUHHSAPREOLNQA`
 
