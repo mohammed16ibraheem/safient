@@ -4,7 +4,7 @@ Safient wraps Algorand transfers in an AI-guarded protection window so hacked or
 
 ## Project Overview
 - **Goal:** give Algorand users a reversible, AI-protected transfer window so they can claw back funds if a transaction looks suspicious.
-- **What it does:** every outgoing payment is parked in a Safient escrow contract, scanned by our AI risk engine, and either reclaimed by the sender or auto-released to the recipient when the timer expires.
+- **What it does:** every outgoing payment is parked inside a Safient **SafeHold** vault, scanned by our AI risk engine, and either reclaimed by the sender or auto-released to the recipient when the timer expires.
 
 ## Setup & Installation Instructions
 1. **Clone & install**
@@ -31,8 +31,8 @@ Safient wraps Algorand transfers in an AI-guarded protection window so hacked or
 
 ## Architecture & Components
 - **Next.js 14 frontend** – marketing site, wallet onboarding, and the Algorand dashboard (`src/app/`).
-- **Safient AI components** – reusable UI + logic for escrow creation, verification, and timers under `src/app/Algorand/Algo-smart/`.
-- **API routes** – server actions that call Algorand SDK, manage escrow, persist testnet data, and interact with storage (`src/app/Algorand/api/` and `Algo-smart/api/`).
+- **Safient AI components** – reusable UI + logic for SafeHold creation, verification, and timers under `src/app/Algorand/Algo-smart/`.
+- **API routes** – server actions that call Algorand SDK, manage SafeHold lifecycle, persist testnet data, and interact with storage (`src/app/Algorand/api/` and `Algo-smart/api/`).
 - **Storage layer** – wraps local filesystem, Vercel KV, or in-memory fallback to record transactions and wallet snapshots (`src/app/Algorand/utils/storage.ts`).
 - **Smart contracts** – TEAL source, compiled bytecode, and deployment metadata in `src/app/Algorand/Algo-smart/contracts/`.
 
